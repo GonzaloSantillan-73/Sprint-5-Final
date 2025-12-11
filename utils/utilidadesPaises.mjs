@@ -7,7 +7,7 @@ export function renderizarPais(pais) {
     borders: pais.borders || [],
     timezones: pais.timezones || [],
     gini: pais.gini ? Object.values(pais.gini)[0] : null,
-    creador: "Gonzalo Santillan"
+    creadoPor: "Gonzalo Santillan"
   }
 }
 

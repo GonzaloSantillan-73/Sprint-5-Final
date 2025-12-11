@@ -47,7 +47,7 @@ const paisSchema = new mongoose.Schema({
         required: false
     },
 
-    creador: {
+    creadoPor: {
         type: String,
         required: true,
         default: "Gonzalo Santillan"

@@ -1,38 +1,68 @@
 <h1>Lista de Países Hispanos</h1>
 
-<table class="tabla-paises">
+<div class="contenedor-tabla">
+  <table class="tabla-paises">
     <thead>
-        <tr>
-            <th>Num</th> <th>Nombre Oficial</th>
-            <th>Capital</th>
-            <th>Población</th>
-            <th>Área (km²)</th>
-            <th>Límites</th> <th>Timezones</th> <th>Gini</th>
-        </tr>
+      <tr>
+        <th>Num</th>
+        <th>Nombre Oficial</th>
+        <th>Capital</th>
+        <th>Población</th>
+        <th>Área (km²)</th>
+        <th>Límites</th>
+        <th>Timezones</th>
+        <th>Gini</th>
+        <th>-</th>
+      </tr>
     </thead>
     <tbody>
-        <% paises.forEach((pais, index) => { %>
-            <tr>
-                <td><%= index + 1 %></td>
+      <% paises.forEach((pais, index)=> { %>
+        <tr>
+          <td>
+            <%= index + 1 %>
+          </td>
 
-                <td><%= pais.nombreOficial %></td>
+          <td>
+            <%= pais.nombreOficial %>
+          </td>
 
-                <td><%= pais.capital[0] || '-' %></td>
+          <td>
+            <%= pais.capital[0] || '-' %>
+          </td>
 
-                <td><%= pais.population.toLocaleString() %></td>
+          <td>
+            <%= pais.population.toLocaleString() %>
+          </td>
 
-                <td><%= pais.area.toLocaleString() %></td>
+          <td>
+            <%= pais.area.toLocaleString() %>
+          </td>
 
-                <td>
-                    <%= pais.borders && pais.borders.length > 0 ? pais.borders.join(', ') : 'Isla/Sin fronteras' %>
-                </td>
+          <td>
+            <%= pais.borders && pais.borders.length> 0 ? pais.borders.join(', ') : 'Isla/Sin fronteras' %>
+          </td>
 
-                <td>
-                    <%= pais.timezones && pais.timezones.length > 0 ? pais.timezones.join(', ') : '-' %>
-                </td>
+          <td>
+            <%= pais.timezones && pais.timezones.length> 0 ? pais.timezones.join(', ') : '-' %>
+          </td>
 
-                <td><%= pais.gini ? pais.gini : 'N/A' %></td>
-            </tr>
+          <td>
+            <%= pais.gini ? pais.gini : 'N/A' %>
+          </td>
+          <td>
+            <a class="btonEditar" href=""><span class="material-symbols-outlined">edit</span></a>
+
+            <form
+              action="/paises/<%= pais._id %>/eliminar?_method=DELETE"
+              method="POST"
+              style="display:inline;"
+              onsubmit="return confirm('¿Estás seguro de que quieres eliminar a <%= pais.nombreOficial %>?');">
+
+              <button type="submit" class="btonEliminar"><span class="material-symbols-outlined">delete</span></button>
+            </form>
+          </td>
+        </tr>
         <% }) %>
     </tbody>
-</table>
+  </table>
+</div>
