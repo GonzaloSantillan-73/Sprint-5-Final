@@ -1,17 +1,17 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-    font-family: "Poppins", sans-serif;
-    background-color:rgb(255, 255, 255);
+  font-family: "Poppins", sans-serif;
+  background-color: rgb(255, 255, 255);
 }
 
-header{
+header {
   background-color: rgb(0, 0, 0);
-  display:flex;
+  display: flex;
   align-items: center;
   padding: 10px;
   gap: 40px;
@@ -19,48 +19,68 @@ header{
   border-top: 5px solid blue;
 }
 
-.logo{
+.logo {
   width: 80px;
   height: 80px;
 }
 
-.a-nav{
+.a-nav {
   text-decoration: none;
   color: white;
   font-size: 20px;
 }
 
-.li-nav{
+.li-nav {
   list-style: none;
   text-decoration: none;
   margin: 0 10px;
 }
 
-.ul-nav{
+.ul-nav {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-main{
-  margin: 310px auto;
-  max-width: 1000px;
+main {
   text-align: center;
-  background-color: rgb(226, 226, 226);
   margin: 20px auto;
   border-radius: 20px;
   padding: 20px;
 }
 
-h1,h2,p{
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: #a9dffc;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+thead{
+  background-color: black;
+  color: white;
+}
+
+th,
+td {
+  padding: 5px;
+}
+
+tbody>:nth-child(odd) {
+  background-color: rgb(211, 240, 253);
+}
+
+h1,
+h2,
+p {
   margin-bottom: 10px;
 }
 
-h2{
+h2 {
   color: rgb(34, 34, 34);
 }
 
-footer{
+footer {
   background-color: black;
   color: white;
   border-top: 7px solid blue;
@@ -69,17 +89,17 @@ footer{
   align-items: center;
 }
 
-footer a{
+footer a {
   color: rgb(149, 198, 255);
   list-style: none;
   text-decoration: none;
 }
 
-footer li{
+footer li {
   list-style: none;
 }
 
-.div-footer{
+.div-footer {
   display: flex;
   width: 100%;
   align-items: center;

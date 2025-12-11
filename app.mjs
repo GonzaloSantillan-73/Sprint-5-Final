@@ -1,12 +1,12 @@
 import express from "express"
 import { connectDB } from "./config/dbConfig.mjs"
-import paisesAmericaRoutes from "./routes/paisesAmericaRoutes.mjs"
+import paisesRoutes from "./routes/paisesRoutes.mjs"
 import path from "path"
 import { fileURLToPath } from 'url';
 import expressLayouts from "express-ejs-layouts"
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8080
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,14 +35,15 @@ const loggerMiddleware = (req, res, next) => {
 }
 app.use(loggerMiddleware);
 
-app.use("/", paisesAmericaRoutes)
+app.use("/", paisesRoutes)
 
 app.use((req, res) => {
   res.status(404).json({ mensaje: "Ruta no encontrada" })
 })
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`\n============================================`)
-  console.log(`🚀 Servidor levantado en el puerto: ${PORT}`)
+console.log(`\n============================================`)
+  console.log(`🚀 Servidor levantado exitosamente`)
+  console.log(`👉 Accede aquí: http://localhost:${PORT}`)
   console.log(`============================================\n`)
 });
