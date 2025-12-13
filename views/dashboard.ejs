@@ -27,7 +27,7 @@
           </td>
 
           <td>
-            <%= pais.capital[0] || '-' %>
+            <%= pais.capital && pais.capital.length > 0 ? pais.capital.join(', ') : '-' %>
           </td>
 
           <td>
@@ -39,18 +39,18 @@
           </td>
 
           <td>
-            <%= pais.borders && pais.borders.length> 0 ? pais.borders.join(', ') : 'Isla/Sin fronteras' %>
+            <%= pais.borders && pais.borders.length> 0 ? pais.borders.join(', ') : 'Sin fronteras' %>
           </td>
 
           <td>
-            <%= pais.timezones && pais.timezones.length> 0 ? pais.timezones.join(', ') : '-' %>
+            <%= pais.timezones && pais.timezones.length > 0 ? pais.timezones.join(', ') : '-' %>
           </td>
 
           <td>
             <%= pais.gini ? pais.gini : 'N/A' %>
           </td>
           <td>
-            <a class="btonEditar" href=""><span class="material-symbols-outlined">edit</span></a>
+            <a class="btonEditar" href="/formulario/editar/<%=pais._id%>"><span class="material-symbols-outlined">edit</span></a>
 
             <form
               action="/paises/<%= pais._id %>/eliminar?_method=DELETE"

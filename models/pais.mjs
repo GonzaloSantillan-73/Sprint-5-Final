@@ -18,18 +18,18 @@ const paisSchema = new mongoose.Schema({
     population: {
         type: Number,
         required: true,
-        min: 0
+        min: 1
     },
 
     area: {
         type: Number,
         required: true,
-        min: 0
+        min: 1
     },
 
     borders: [{
         type: String,
-        required: true,
+        required: false,
         minlength: 3,
         maxlength: 3,
         match: /^[A-Z]{3}$/

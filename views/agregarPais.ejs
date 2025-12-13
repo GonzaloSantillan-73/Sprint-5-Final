@@ -1,0 +1,122 @@
+<h1>Formulario para agregar país</h1>
+
+<form class="formulario-agregar" action="/paises/crear" method="POST" novalidate>
+
+  <label for="nombreOficial">Nombre común u oficial</label><br>
+  <input type="text" name="nombreOficial" id="nombreOficial" class="<%= locals.errores && locals.errores.nombreOficial ? 'input-error' : '' %>" value="<%= locals.pais ? pais.nombreOficial : '' %>">
+  <% if (locals.errores && locals.errores.nombreOficial) { %>
+    <span class="msg-error"><%= locals.errores.nombreOficial %></span>
+  <% } %>
+
+  <br><br>
+
+  <label>Capital</label><br>
+  <div id="capital-container">
+    <% if (locals.pais && pais.capital) { %>
+      <% let caps=Array.isArray(pais.capital) ? pais.capital : [pais.capital]; %>
+      <% caps.forEach(cap=> { %>
+        <div class="item-dinamico">
+          <input type="text" name="capital[]" value="<%= cap %>">
+          <button type="button" onclick="eliminarCampo(this)">X</button>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <input type="text" name="capital[]"><br>
+    <% } %>
+  </div>
+  <% if (locals.errores && locals.errores.capital) { %>
+    <span class="msg-error"><%= locals.errores.capital %></span>
+  <% } %>
+  <button type="button" onclick="agregarCampo('capital-container','capital')">Agregar más capitales</button><br><br>
+
+  <label for="population">Población</label><br>
+  <input type="number" name="population" id="population" class="<%= locals.errores && locals.errores.population ? 'input-error' : '' %>" value="<%= locals.pais ? pais.population : '' %>">
+  <% if (locals.errores && locals.errores.population) { %>
+    <span class="msg-error"><%= locals.errores.population %></span>
+  <% } %>
+
+  <br><br>
+
+  <label for="area">Área (km²)</label><br>
+  <input type="number" name="area" id="area" class="<%= locals.errores && locals.errores.area ? 'input-error' : '' %>" value="<%= locals.pais ? pais.area : '' %>">
+  <% if (locals.errores && locals.errores.area) { %>
+    <span class="msg-error"> <%= locals.errores.area %></span>
+  <% } %>
+
+  <br><br>
+
+  <label>Países limítrofes</label><br>
+  <div id="limitrofes-container">
+    <% if (locals.pais && pais.borders) { %>
+      <% let bord=Array.isArray(pais.borders) ? pais.borders : [pais.borders]; %>
+      <% bord.forEach(frontera=> { %>
+        <div class="item-dinamico">
+            <input type="text" name="borders[]" value="<%= frontera %>" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: ARG">
+            <button type="button" onclick="eliminarCampo(this)">X</button>
+        </div>
+    <% }) %>
+    <% } else { %>
+      <input type="text" name="borders[]" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: ARG"><br>
+    <% } %>
+  </div>
+  <% if (locals.errores && locals.errores.borders) { %>
+    <span class="msg-error"><%= locals.errores.borders %></span>
+  <% } %>
+  <button type="button" onclick="agregarCampo('limitrofes-container','borders')">Agregar más límites</button><br><br>
+
+  <label>Zona horaria</label><br>
+  <div id="timezones-container">
+    <% if (locals.pais && pais.timezones) { %>
+      <% let zones=Array.isArray(pais.timezones) ? pais.timezones : [pais.timezones]; %>
+      <% zones.forEach(zona=> { %>
+        <div class="item-dinamico">
+          <input type="text" name="timezones[]" value="<%= zona %>" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: UTC-03:00">
+          <button type="button" onclick="eliminarCampo(this)">X</button>
+        </div>
+    <% }) %>
+    <% } else { %>
+      <input type="text" name="timezones[]" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: UTC-03:00"><br>
+    <% } %>
+  </div>
+
+  <% if (locals.errores && locals.errores.timezones) { %>
+    <span class="msg-error"><%= locals.errores.timezones %></span>
+  <% } %>
+
+  <button type="button" onclick="agregarCampo('timezones-container','timezones')">Agregar más zonas</button><br><br>
+
+  <label for="gini">Gini</label><br>
+  <input type="number" name="gini" class="<%= locals.errores && locals.errores.gini ? 'input-error' : '' %>" value="<%= locals.pais ? pais.gini : '' %>">
+  <% if (locals.errores && locals.errores.gini) { %>
+    <span class="msg-error"><%= locals.errores.gini %></span>
+  <% } %>
+
+  <br><br>
+
+  <button type="submit">Guardar País</button>
+</form>
+
+<script>
+  function agregarCampo(containerId, tipoInput) {
+    const container = document.getElementById(containerId);
+    const div = document.createElement("div");
+    div.classList.add("item-dinamico");
+
+    let htmlInput = ''
+
+    if (tipoInput === 'capital') {
+      htmlInput = '<input type="text" name="capital[]">'
+    } else if (tipoInput === 'borders') {
+      htmlInput = '<input type="text" name="borders[]" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: BRA">'
+    } else if (tipoInput === 'timezones') {
+      htmlInput = '<input type="text" name="timezones[]" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: UTC-03:00">'
+    }
+
+    div.innerHTML = htmlInput + ' <button type="button" onclick="eliminarCampo(this)">X</button>'
+    container.appendChild(div)
+  }
+
+  function eliminarCampo(btn) {
+    btn.parentElement.remove()
+  }
+</script>

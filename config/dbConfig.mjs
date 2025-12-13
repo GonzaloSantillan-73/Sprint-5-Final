@@ -1,12 +1,16 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-export async function connectDB(){
-  try{
-    await mongoose.connect("mongodb+srv://Grupo-20:grupo20@cursadanodejs.ls9ii.mongodb.net/Node-js")
-    console.log("Conexion exitosa a MongoDB")
+export const connectDB = async () => {
+  try {
+    const url = process.env.MONGO_URI;
+    if (!url) {
+        throw new Error("❌ La variable MONGO_URI no está definida en el archivo .env");
+    }
+
+    await mongoose.connect(url);
+    console.log("✅ Conectado exitosamente a MongoDB Atlas");
+  } catch (error) {
+    console.error("❌ Error al conectar a la base de datos:", error.message);
+    process.exit(1);
   }
-  catch(error){
-    console.error("Error al conectar a MongoDB: ",error)
-    process.exit(1)
-  }
-}
+};

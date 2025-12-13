@@ -1,3 +1,6 @@
+/* =========================================
+   1. RESETS Y ESTILOS GENERALES
+   ========================================= */
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +12,26 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
+h1,
+h2,
+p {
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: rgb(34, 34, 34);
+}
+
+main {
+  text-align: center;
+  margin: 20px auto;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+/* =========================================
+   2. HEADER Y NAVEGACIÓN
+   ========================================= */
 header {
   background-color: rgb(0, 0, 0);
   display: flex;
@@ -24,10 +47,10 @@ header {
   height: 80px;
 }
 
-.a-nav {
-  text-decoration: none;
-  color: white;
-  font-size: 20px;
+.ul-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .li-nav {
@@ -36,17 +59,60 @@ header {
   margin: 0 10px;
 }
 
-.ul-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.a-nav {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
 }
 
-main {
-  text-align: center;
-  margin: 20px auto;
-  border-radius: 20px;
+/* =========================================
+  3. FORMULARIO AGREGAR (Tu primer código)
+========================================= */
+.formulario-agregar {
+  background-color: rgb(0, 77, 165);
+  color: white;
   padding: 20px;
+  border-radius: 20px;
+  margin: 0 auto;
+  width: 500px;
+  text-align: left;
+}
+
+.formulario-agregar input[type="text"],
+.formulario-agregar input[type="number"] {
+  width: 90%;
+  border: none;
+  padding: 4px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.formulario-agregar button[type="submit"] {
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(0, 167, 0);
+  color: white;
+  cursor: pointer;
+}
+
+.formulario-agregar button[type="button"] {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(99, 167, 255);
+  color: white;
+}
+
+
+/* =========================================
+  4. TABLAS Y CONTENEDORES
+========================================= */
+.contenedor-tabla {
+  width: 100%;
+  overflow-x: auto;
+  /* Scroll horizontal si es necesario */
 }
 
 table {
@@ -56,7 +122,7 @@ table {
   border: 1px solid rgb(0, 0, 0);
 }
 
-thead{
+thead {
   background-color: black;
   color: white;
 }
@@ -66,20 +132,30 @@ td {
   padding: 5px;
 }
 
-tbody>:nth-child(odd) {
+tbody> :nth-child(odd) {
   background-color: rgb(211, 240, 253);
 }
 
-h1,
-h2,
-p {
-  margin-bottom: 10px;
+/* Botones dentro de la tabla */
+.btonEditar,
+.btonEliminar {
+  padding: 5px 10px;
+  color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
 }
 
-h2 {
-  color: rgb(34, 34, 34);
+.btonEditar {
+  margin-right: 3px;
 }
 
+.btonEliminar {
+  background-color: transparent;
+}
+
+/* =========================================
+   5. FOOTER
+   ========================================= */
 footer {
   background-color: black;
   color: white;
@@ -87,6 +163,14 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.div-footer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 15px;
 }
 
 footer a {
@@ -99,43 +183,74 @@ footer li {
   list-style: none;
 }
 
-.div-footer {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 15px;
-}
-
-/* 1. Estilos Base (Iguales para ambos) */
-.btonEditar, .btonEliminar {
-    padding: 5px 10px;
-    color: rgb(0, 0, 0);
-
-    border: none;
-
-    cursor: pointer;
-}
-
-/* 2. Colores */
-.btonEditar {
-    margin-right: 3px;
-}
-
-.btonEliminar {
-  background-color: transparent;
-}
-
-.contenedor-tabla {
-    width: 100%;        /* Asegura que el contenedor ocupe el ancho disponible */
-    overflow-x: auto;   /* ¡Esta es la magia! Activa el scroll horizontal */
-}
-
-
+/* =========================================
+  6. ICONOS Y EXTRAS
+========================================= */
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* =========================================
+  7. FORMULARIO EDITAR
+========================================= */
+.formulario-editar {
+  background-color: rgb(0, 77, 165);
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 0 auto;
+  width: 500px;
+  text-align: left;
+}
+
+.formulario-editar input[type="text"],
+.formulario-editar input[type="number"] {
+  width: 90%;
+  border: none;
+  padding: 4px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.formulario-editar button[type="submit"] {
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(0, 167, 0);
+  color: white;
+  cursor: pointer;
+}
+
+.formulario-editar button[type="button"] {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(99, 167, 255);
+  color: white;
+}
+
+.item-dinamico {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.item-dinamico button[type="button"]{
+  background-color: rgb(255, 61, 61);
+  margin-left: 3px;
+}
+
+/* Borde rojo para el input que falló */
+.input-error {
+  border: 2px solid #ff4d4d !important;
+}
+
+/* Mensaje de texto rojo debajo del input */
+.msg-error {
+  color: #ff4d4d;
+  font-size: 0.9em;
+  font-weight: bold;
+  display: block;
+  margin-top: 5px;
 }

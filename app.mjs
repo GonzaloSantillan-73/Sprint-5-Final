@@ -1,4 +1,5 @@
 // 1. IMPORTACIONES
+import 'dotenv/config'
 import express from "express"
 import { connectDB } from "./config/dbConfig.mjs"
 import paisesRoutes from "./routes/paisesRoutes.mjs"
