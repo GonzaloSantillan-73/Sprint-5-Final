@@ -13,7 +13,7 @@
   <label>Capital</label><br>
   <div id="capital-container">
     <% if (locals.pais && pais.capital) { %>
-      <% let caps=Array.isArray(pais.capital) ? pais.capital : [pais.capital]; %>
+      <% let caps=Array.isArray(pais.capital) ? pais.capital : [pais.capital]; %> <!--Evita fallos si llega como texto-->
       <% caps.forEach(cap=> { %>
         <div class="item-dinamico">
           <input type="text" name="capital[]" value="<%= cap %>">
@@ -24,8 +24,8 @@
       <input type="text" name="capital[]"><br>
     <% } %>
   </div>
-  <% if (locals.errores && locals.errores.capital) { %>
-    <span class="msg-error"><%= locals.errores.capital %></span>
+  <% if (locals.errores && errores.capital) { %>
+    <span class="msg-error"><%= errores.capital %></span>
   <% } %>
   <button type="button" onclick="agregarCampo('capital-container','capital')">Agregar más capitales</button><br><br>
 

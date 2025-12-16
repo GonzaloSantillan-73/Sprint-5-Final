@@ -136,6 +136,10 @@ tbody> :nth-child(odd) {
   background-color: rgb(211, 240, 253);
 }
 
+tfoot{
+  background-color: black;
+  color: white;
+}
 /* Botones dentro de la tabla */
 .btonEditar,
 .btonEliminar {

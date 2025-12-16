@@ -3,48 +3,47 @@ import IRepository from "./Irepository.mjs"
 import axios from "axios"
 
 class paisEspañolRepository extends IRepository {
+
+  // Busca todos los países que tengan como creador ("Gonzalo Santillan")
   async obtenerTodos() {
-    // console.log("[Repo] obtenerTodos -> Ejecutando .find()") // Opcional, puede ser mucho ruido
     return await paisEspañol.find({ creadoPor: "Gonzalo Santillan" })
   }
 
+  // Simplemente cuenta cuántos documentos tienes guardados (útil para verificar si está vacía)
   async contarDatos() {
-    const cuenta = await paisEspañol.countDocuments({ creadoPor: "Gonzalo Santillan" })
-    console.log(`[Repo] contarDatos -> Total: ${cuenta}`)
-    return cuenta
+    return await paisEspañol.countDocuments({ creadoPor: "Gonzalo Santillan" })
   }
 
+  // Sale de tu servidor y busca datos en la API pública de RestCountries
   async obtenerPaisesEndPoint() {
-    console.log("[Repo] obtenerPaisesEndPoint -> Fetching data from RestCountries API...")
     const response = await axios.get("https://restcountries.com/v3.1/region/america")
-    console.log("[Repo] obtenerPaisesEndPoint -> Datos recibidos de API externa")
-    return response.data
+    return response.data // Devuelve solo la información útil (el array de países)
   }
 
+  // Guarda una lista masiva de países de una sola vez (ideal para la carga inicial)
   async guardarVarios(listaDePaises) {
-    console.log(`[Repo] guardarVarios -> Insertando ${listaDePaises.length} documentos...`)
     return await paisEspañol.insertMany(listaDePaises);
   }
 
+  // Búsqueda flexible: Puedes buscar por "_id", por "nombreOficial", o lo que quieras
   async obtenerPais(clave, valor){
-    console.log(`[Repo] obtenerPais -> Buscando One donde { ${clave}: "${valor}" }`)
     const consulta = {}
-    consulta[clave] = valor
+    consulta[clave] = valor // Crea el filtro dinámicamente (ej: { _id: "123" })
     return await paisEspañol.findOne(consulta)
   }
 
+  // Borra un país usando su ID único
   async eliminar(id){
-    console.log(`[Repo] eliminar -> Ejecutando findByIdAndDelete(${id})`)
     return await paisEspañol.findByIdAndDelete(id)
   }
 
+  // Crea un nuevo país individual en la base de datos
   async agregar(pais){
-    console.log("[Repo] agregar -> Creando nuevo documento en MongoDB")
     return await paisEspañol.create(pais)
   }
 
-async actualizar(id, datosActualizados) {
-    console.log(`[Repo] actualizar -> Modificando ID: ${id}`);
+  // Busca por ID, actualiza los datos y devuelve el país YA modificado ({ new: true })
+  async actualizar(id, datosActualizados) {
     return await paisEspañol.findByIdAndUpdate(id, datosActualizados, { new: true });
   }
 }

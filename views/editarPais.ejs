@@ -82,7 +82,7 @@
   <button type="button" onclick="agregarCampo('timezones-container','timezones')">Agregar más zonas</button><br><br>
 
   <label for="gini">Gini</label><br>
-  <input type="number" name="gini" class="<%= locals.errores && locals.errores.gini ? 'input-error' : '' %>" value="<%= pais.gini || '' %>">
+  <input type="number" name="gini" step="any" class="<%= locals.errores && locals.errores.gini ? 'input-error' : '' %>" value="<%= pais.gini || '' %>">
   <% if (locals.errores && locals.errores.gini) { %>
     <span class="msg-error"><%= locals.errores.gini %></span>
   <% } %>

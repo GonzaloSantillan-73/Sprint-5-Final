@@ -2,59 +2,61 @@ import paisRepository from "../repositories/paisRepository.mjs"
 import { renderizarPais, renderizarListaPaises, filtrarEspañol } from "../utils/utilidadesPaises.mjs"
 
 export async function obtenerTodosLosPaisesEspañol() {
-  console.log("[Service] obtenerTodos -> Verificando cantidad en DB...")
+  // 1. Preguntamos al repositorio cuántos datos tenemos
   const cantidad = await paisRepository.contarDatos()
 
+  // 2. Lógica de "Carga Inicial" (Seed):
+  // Si la base de datos está vacía, tenemos que ir a buscar los datos a la API externa
   if (cantidad == 0) {
-    console.log("[Service] obtenerTodos -> DB vacía. Iniciando carga desde API externa...")
     const paisesApi = await paisRepository.obtenerPaisesEndPoint()
 
-    // Log para saber cuántos trajo la API antes de filtrar
-    console.log(`[Service] obtenerTodos -> API retornó ${paisesApi.length} países. Filtrando español...`)
-
+    // Filtramos para quedarnos solo con los de habla hispana y formateamos los datos
     const paisesEspañol = filtrarEspañol(paisesApi)
     const paisesFormateados = renderizarListaPaises(paisesEspañol)
 
-    console.log(`[Service] obtenerTodos -> Guardando ${paisesFormateados.length} países iniciales...`)
+    // Guardamos todo en MongoDB para no tener que consultar la API externa nunca más
     await paisRepository.guardarVarios(paisesFormateados)
 
     return await paisRepository.obtenerTodos()
   }
 
-  console.log(`[Service] obtenerTodos -> Retornando ${cantidad} países existentes de DB`)
+  // 3. Si ya tenemos datos, simplemente los devolvemos desde nuestra base de datos local
   return await paisRepository.obtenerTodos()
 }
 
 export async function eliminarPais(id) {
-  console.log(`[Service] eliminarPais -> Buscando y eliminando ID: ${id}`)
+  // Mandamos a borrar el documento
   const paisBorrado = await paisRepository.eliminar(id)
 
+  // Si el repositorio devuelve null, significa que ese ID no existía
   if (!paisBorrado) {
-    console.warn("[Service] eliminarPais -> ID no encontrado")
     throw new Error("El pais no se encontro en la base de datos")
   }
-  console.log("[Service] eliminarPais -> Eliminación confirmada")
 }
 
 export async function agregarPais(pais){
-  console.log(`[Service] agregarPais -> Validando existencia de: ${pais.nombreOficial}`)
+  // Validamos que no exista otro país con el mismo nombre
   if(await paisRepository.obtenerPais("nombreOficial", pais.nombreOficial)){
-    console.warn("[Service] agregarPais -> Error: Duplicado detectado")
     throw new Error(`El país ${pais.nombreOficial} ya existe en la base de datos`)
   }
 
-  console.log("[Service] agregarPais -> Validación OK. Enviando a Repo...")
+  // Si es único, procedemos a guardarlo
   await paisRepository.agregar(pais)
 }
 
 export async function obtenerPais(clave,valor){
+  // Función puente para buscar un país específico (por ID, nombre, etc.)
   return await paisRepository.obtenerPais(clave,valor)
 }
 
 export async function actualizarPais(id,datosActualizados){
+  // Paso de seguridad: Verificamos que el país exista antes de intentar editarlo
   const pais = await paisRepository.obtenerPais("_id",id)
+
   if(!pais){
     throw new Error("El país que intentas editar no existe.");
   }
+
+  // Si existe, enviamos los nuevos datos al repositorio
   return await paisRepository.actualizar(id, datosActualizados);
 }

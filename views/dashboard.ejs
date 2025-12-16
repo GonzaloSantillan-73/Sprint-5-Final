@@ -16,8 +16,17 @@
       </tr>
     </thead>
     <tbody>
-      <% paises.forEach((pais, index)=> { %>
+      <%let sumaPoblacion = 0
+        let sumaArea = 0
+        let sumaGini= 0
+        let cantidadGini = 0%>
+      <%paises.forEach((pais, index)=> { %>
+        <%sumaPoblacion += pais.population
+          sumaArea += pais.area
+          sumaGini += (pais.gini || 0)
+          if(pais.gini) cantidadGini += 1%>
         <tr>
+
           <td>
             <%= index + 1 %>
           </td>
@@ -62,7 +71,18 @@
             </form>
           </td>
         </tr>
-        <% }) %>
+      <% }) %>
     </tbody>
+    <tfoot>
+      <%let promedioGini = sumaGini / cantidadGini%>
+      <tr>
+        <td>Area total:</td>
+        <td colspan="2"><%=sumaArea %></td>
+        <td>Poblacion total:</td>
+        <td colspan="2"><%=sumaPoblacion %></td>
+        <td>Promedio gini:</td>
+        <td colspan="2"><%=promedioGini.toFixed(2) %></td>
+      </tr>
+    </thead>
   </table>
 </div>
