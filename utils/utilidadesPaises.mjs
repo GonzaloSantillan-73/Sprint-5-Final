@@ -2,7 +2,7 @@
 export function renderizarPais(pais) {
   return {
     // Intenta sacar el nombre en español. Si no existe, usa el nombre común en inglés.
-    nombreOficial: pais.translations?.spa?.official || pais.name.common,
+    nombreOficial: pais.translations?.spa?.official || pais.name.official,
 
     // Si el país no tiene capital (pasa a veces), ponemos un array vacío [] para que no dé error
     capital: pais.capital || [],

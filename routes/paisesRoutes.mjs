@@ -1,5 +1,5 @@
 import express from "express"
-// Importamos los controladores (las funciones que tienen la lógica)
+// Importamos los controladores
 import {
   mostrarInicioController,
   obtenerPaisesEspañolController,
@@ -7,51 +7,43 @@ import {
   mostrarFormularioAgregarController,
   agregarPaisController,
   mostrarFormularioEditarController,
-  actualizarPaisController
+  actualizarPaisController,
+  MostrarPaisesEspañolController
 } from "../controllers/paisesEspañolController.mjs"
 
-// Importamos las reglas de validación y el árbitro de errores
-import { registerValidationRules } from "./validationRules.mjs"
+// === CAMBIO AQUÍ: Importamos las nuevas listas separadas ===
+import { validarCrear, validarEditar } from "./validationRules.mjs"
 import { handleValidatorErrors } from "./errorMiddleware.mjs"
 
 const router = express.Router()
 
 // ==========================================
-//  RUTAS GET (Para mostrar páginas y datos)
+//  RUTAS GET
 // ==========================================
-
-// Página de Inicio (Home)
 router.get("/", mostrarInicioController)
-
-// Muestra el Dashboard con la tabla de todos los países
-router.get("/paises", obtenerPaisesEspañolController)
-
-// Muestra el formulario VACÍO para crear un país nuevo
+router.get("/api/paises", obtenerPaisesEspañolController)
+router.get("/paises", MostrarPaisesEspañolController)
 router.get("/formulario/agregar", mostrarFormularioAgregarController)
-
-// Muestra el formulario RELLENO con los datos del país a editar (busca por ID)
 router.get("/formulario/editar/:id", mostrarFormularioEditarController)
 
-
 // ==========================================
-//  RUTAS DE ACCIÓN (POST, PUT, DELETE)
+//  RUTAS DE ACCIÓN
 // ==========================================
 
-// Eliminar un país específico
 router.delete("/paises/:id/eliminar", eliminarPaisController)
 
-// Crear un país nuevo (Pasa por 3 pasos)
+// === RUTA CREAR (Usamos validarCrear SIN paréntesis) ===
 router.post("/paises/crear",
-    registerValidationRules(),         // 1. Chequea las reglas (validator)
-    handleValidatorErrors("agregarPais"), // 2. Si hay error, te devuelve al form "agregarPais"
-    agregarPaisController                 // 3. Si pasa, el controlador guarda el país
+    validarCrear,                       // 1. Array de validaciones (sin duplicados)
+    handleValidatorErrors("agregarPais"), // 2. Si falla, vuelve al form "agregarPais"
+    agregarPaisController               // 3. Guarda
 )
 
-// Actualizar un país existente (Pasa por los mismos 3 pasos)
+// === RUTA EDITAR (Usamos validarEditar SIN paréntesis) ===
 router.put("/pais/actualizar/:id",
-    registerValidationRules(),        // 1. Chequea las reglas
-    handleValidatorErrors("editarPais"), // 2. Si hay error, te devuelve al form "editarPais"
-    actualizarPaisController             // 3. Si pasa, el controlador guarda los cambios
+    validarEditar,                      // 1. Array de validaciones (ignora su propio ID)
+    handleValidatorErrors("editarPais"),  // 2. Si falla, vuelve al form "editarPais"
+    actualizarPaisController            // 3. Actualiza
 )
 
 export default router

@@ -2,7 +2,6 @@
 
 <form class="formulario-editar" action="/pais/actualizar/<%= pais._id || pais.id %>?_method=PUT" method="POST">
 
-  <input type="hidden" name="id" value="<%= pais._id || pais.id %>">
   <label for="nombreOficial">Nombre común u oficial</label><br>
   <input type="text" name="nombreOficial" id="nombreOficial" class="<%= locals.errores && locals.errores.nombreOficial ? 'input-error' : '' %>" value="<%= pais.nombreOficial %>">
   <% if (locals.errores && locals.errores.nombreOficial) { %>
@@ -93,9 +92,9 @@
 
 <script>
   function agregarCampo(containerId, tipoInput) {
-    const container = document.getElementById(containerId);
-    const div = document.createElement("div");
-    div.classList.add("item-dinamico");
+    const container = document.getElementById(containerId)
+    const div = document.createElement("div")
+    div.classList.add("item-dinamico")
 
     let htmlInput = ''
 

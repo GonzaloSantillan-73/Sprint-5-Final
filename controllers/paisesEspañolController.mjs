@@ -5,8 +5,21 @@ export async function mostrarInicioController(req, res){
   res.render("index", { title: "Inicio" })
 }
 
-// CONTROLADOR: Muestra la lista principal de países
+// CONTROLADOR: Obtiene todos los paises
 export async function obtenerPaisesEspañolController(req, res) {
+  try {
+    // 1. Pide los datos a la base de datos
+    const paises = await obtenerTodosLosPaisesEspañol()
+    // 2. Envía la vista "dashboard" rellena con la lista de países
+    res.status(200).json(paises);
+  }
+  catch (error) {
+    res.status(500).send({ mensaje: "Operacion fallida", error: error.message })
+  }
+}
+
+// CONTROLADOR: Muestra la lista principal de países
+export async function MostrarPaisesEspañolController(req, res) {
   try {
     // 1. Pide los datos a la base de datos
     const paises = await obtenerTodosLosPaisesEspañol()
