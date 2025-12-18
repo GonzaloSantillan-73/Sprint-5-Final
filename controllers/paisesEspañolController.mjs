@@ -102,3 +102,7 @@ export async function actualizarPaisController(req, res) {
     `);
   }
 }
+
+export async function mostrarAcercaDeController(req, res) {
+  res.render("acerca", { title: "Acerca de nosotros" });
+}

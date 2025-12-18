@@ -8,7 +8,8 @@ import {
   agregarPaisController,
   mostrarFormularioEditarController,
   actualizarPaisController,
-  MostrarPaisesEspañolController
+  MostrarPaisesEspañolController,
+  mostrarAcercaDeController
 } from "../controllers/paisesEspañolController.mjs"
 
 // === CAMBIO AQUÍ: Importamos las nuevas listas separadas ===
@@ -21,6 +22,7 @@ const router = express.Router()
 //  RUTAS GET
 // ==========================================
 router.get("/", mostrarInicioController)
+router.get("/acerca", mostrarAcercaDeController);
 router.get("/api/paises", obtenerPaisesEspañolController)
 router.get("/paises", MostrarPaisesEspañolController)
 router.get("/formulario/agregar", mostrarFormularioAgregarController)

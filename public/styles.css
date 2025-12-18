@@ -258,3 +258,53 @@ footer li {
   display: block;
   margin-top: 5px;
 }
+
+/* =========================================
+   8. ESTILOS ACERCA DE (NUEVO)
+========================================= */
+.contenedor-acerca {
+  background-color: rgb(235, 245, 255); /* Un azul muy clarito para el fondo */
+  border: 3px solid rgb(0, 77, 165);    /* El mismo azul de tus formularios */
+  border-radius: 20px;
+  padding: 40px;
+  width: 80%;       /* Más ancho que el formulario para leer mejor */
+  max-width: 800px; /* Pero que no se estire demasiado */
+  margin: 0 auto;   /* Centrado */
+  text-align: left; /* Texto a la izquierda para mejor lectura */
+  color: rgb(34, 34, 34);
+}
+
+.contenedor-acerca h1 {
+  text-align: center;
+  color: rgb(0, 77, 165);
+  border-bottom: 2px solid rgb(0, 0, 0); /* Línea separadora */
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.contenedor-acerca h2 {
+  margin-top: 25px;
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0); /* Títulos en negro como tu header */
+}
+
+.contenedor-acerca p {
+  line-height: 1.6; /* Un poco de aire entre líneas */
+  margin-bottom: 15px;
+}
+
+.contenedor-acerca ul {
+  list-style-type: square; /* Viñetas cuadradas simples */
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.contenedor-acerca li {
+  margin-bottom: 8px;
+}
+
+/* Un estilo simple para resaltar palabras clave */
+.resaltado {
+  font-weight: bold;
+  color: rgb(0, 77, 165);
+}

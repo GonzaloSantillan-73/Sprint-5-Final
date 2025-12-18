@@ -1,0 +1,32 @@
+# Trabajo Práctico Final - Dashboard de América Hispana 🌎
+Nombre: Gonzalo Santillan
+DNI: 44795131
+Mail: lsantillangonzalo73@gmail.com
+
+## 1. Objetivos
+El objetivo del proyecto es desarrollar una aplicación web Backend que centralice y gestione la información de los países de habla hispana en América.
+
+El sistema consume datos reales de una API externa (`restcountries.com`), los filtra y los almacena en una base de datos propia para permitir la gestión completa (CRUD):
+Carga Inicial: Obtención y filtrado automático de datos desde la API.
+Gestión: Alta, baja y modificación de países (incluyendo campos dinámicos como fronteras y zonas horarias).
+Validación: Control de errores en el servidor antes de guardar los datos.
+
+## 2. Tecnologías Usadas
+El proyecto sigue el patrón de arquitectura MVC (Modelo-Vista-Controlador) separado en capas (Rutas, Controladores, Servicios, Repositorios).
+
+Backend: Node.js y Express.js.
+Base de Datos: MongoDB Atlas con Mongoose (Schemas y Modelos).
+Frontend: Motor de plantillas EJS con HTML5 y CSS3.
+Seguridad:`dotenv` para variables de entorno.
+Validaciones:`express-validator`.
+Conexión Externa: `axios` para consumir la API de países.
+
+## 3. Pasos de ejecución
+El proyecto ya tiene incluida la carpeta `node_modules` en el repositorio, por lo que debería funcionar directamente.
+(Si llega a tirar error, ejecutar npm install, pero no debería ser necesario).
+
+### Paso 1: Configurar Credenciales (.env)
+El sistema utiliza la librería dotenv por seguridad. Para conectarse a la base de datos, es obligatorio crear un archivo llamado `.env` en la raíz del proyecto y pegar lo siguiente:
+
+PORT=8080
+MONGO_URI=mongodb+srv://Grupo-20:grupo20@cursadanodejs.ls9ii.mongodb.net/Node-js

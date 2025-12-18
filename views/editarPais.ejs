@@ -91,26 +91,42 @@
 </form>
 
 <script>
+  // Esta función se dispara cuando tocas cualquier botón de "Agregar más..."
+  // Recibe dos cosas: Dónde ponerlo (containerId) y qué tipo de input es (tipoInput)
   function agregarCampo(containerId, tipoInput) {
+
+    // 1. Busco la caja grande (div) donde vamos a meter los nuevos campos
     const container = document.getElementById(containerId)
+
+    // 2. Creo un div nuevo desde cero para agrupar el input y el botón de borrar
     const div = document.createElement("div")
-    div.classList.add("item-dinamico")
+    div.classList.add("item-dinamico") // Le pongo la clase para que se acomode bien (flex)
 
     let htmlInput = ''
 
+    // 3. Chequeo qué tipo de campo pidió el usuario para armar el HTML correcto
     if (tipoInput === 'capital') {
+      // name="capital[]" tiene corchetes para que Express sepa que es una lista
       htmlInput = '<input type="text" name="capital[]">'
     } else if (tipoInput === 'borders') {
+      // Acá agrego el truco de "toUpperCase" para que se escriba en mayúsculas solo
       htmlInput = '<input type="text" name="borders[]" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: BRA">'
     } else if (tipoInput === 'timezones') {
       htmlInput = '<input type="text" name="timezones[]" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: UTC-03:00">'
     }
 
+    // 4. Relleno el div con el input que armamos arriba Y le pego el botón de la "X"
+    // El "onclick" del botón llama a la función de abajo pasándose a sí mismo (this)
     div.innerHTML = htmlInput + ' <button type="button" onclick="eliminarCampo(this)">X</button>'
+
+    // 5. Finalmente, meto ese div nuevo dentro del contenedor visible
     container.appendChild(div)
   }
 
+  // Esta función elimina el campo cuando tocan la X
   function eliminarCampo(btn) {
+    // "btn" es el botón rojo. Su "parentElement" es el div que contiene al input y al botón.
+    // Al hacer .remove(), borramos todo el renglón del HTML.
     btn.parentElement.remove()
   }
 </script>

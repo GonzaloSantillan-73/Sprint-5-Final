@@ -97,26 +97,43 @@
 </form>
 
 <script>
+  // Esta función se activa cuando toco el botón "Agregar más..."
+  // Recibe dos datos: el ID de la caja donde va a ir (containerId) y qué tipo de input es (tipoInput)
   function agregarCampo(containerId, tipoInput) {
-    const container = document.getElementById(containerId);
-    const div = document.createElement("div");
-    div.classList.add("item-dinamico");
+
+    // 1. Busco el contenedor (div) en el HTML donde voy a meter el nuevo campo
+    const container = document.getElementById(containerId)
+
+    // 2. Creo un div nuevo desde cero para que agrupe el input y su botón de borrar
+    const div = document.createElement("div")
+    div.classList.add("item-dinamico") // Le agrego la clase CSS para que se vea ordenado
 
     let htmlInput = ''
 
+    // 3. Decido qué HTML escribir según el botón que apretó el usuario
     if (tipoInput === 'capital') {
+      // name="capital[]" tiene corchetes para que el Backend entienda que es una lista de varias cosas
       htmlInput = '<input type="text" name="capital[]">'
     } else if (tipoInput === 'borders') {
+      // Acá le agregué un pequeño script para que se ponga en mayúsculas solo mientras escriben
       htmlInput = '<input type="text" name="borders[]" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: BRA">'
     } else if (tipoInput === 'timezones') {
       htmlInput = '<input type="text" name="timezones[]" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: UTC-03:00">'
     }
 
+    // 4. Relleno el div nuevo con el input que armé arriba + el botón rojo de la X
+    // Al botón le digo que al hacer click llame a "eliminarCampo" y se pase a sí mismo (this)
     div.innerHTML = htmlInput + ' <button type="button" onclick="eliminarCampo(this)">X</button>'
+
+    // 5. Finalmente, agrego este div nuevo al final del contenedor visible
     container.appendChild(div)
   }
 
+  // Función para borrar un renglón
   function eliminarCampo(btn) {
+    // "btn" es el botón rojo que clickearon.
+    // "parentElement" es el div que contiene al input Y al botón.
+    // Al hacer .remove(), borro toda la línea completa del formulario.
     btn.parentElement.remove()
   }
 </script>
