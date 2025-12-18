@@ -1,7 +1,7 @@
 <h1>Editar País</h1>
 
 <form class="formulario-editar" action="/pais/actualizar/<%= pais._id || pais.id %>?_method=PUT" method="POST">
-
+  <!--Nombre-->
   <label for="nombreOficial">Nombre común u oficial</label><br>
   <input type="text" name="nombreOficial" id="nombreOficial" class="<%= locals.errores && locals.errores.nombreOficial ? 'input-error' : '' %>" value="<%= pais.nombreOficial %>">
   <% if (locals.errores && locals.errores.nombreOficial) { %>
@@ -10,13 +10,14 @@
 
   <br><br>
 
+  <!--Capital-->
   <label>Capital</label><br>
   <div id="capital-container">
     <%let capitales = Array.isArray(pais.capital) ? pais.capital : [pais.capital];%>
     <%capitales.forEach(function(cap) {%>
       <div class="item-dinamico">
         <input type="text" name="capital[]" value="<%= cap %>">
-      <button type="button" onclick="eliminarCampo(this)">X</button>
+        <button type="button" onclick="eliminarCampo(this)">X</button>
       </div>
     <% }) %>
   </div>
@@ -25,6 +26,7 @@
   <% } %>
   <button type="button" onclick="agregarCampo('capital-container','capital')">Agregar más capitales</button><br><br>
 
+  <!--Poblacion-->
   <label for="population">Población</label><br>
   <input type="number" name="population" id="population" class="<%= locals.errores && locals.errores.population ? 'input-error' : '' %>" value="<%= pais.population %>">
   <% if (locals.errores && locals.errores.population) { %>
@@ -33,6 +35,7 @@
 
   <br><br>
 
+  <!--Area-->
   <label for="area">Area (km²)</label><br>
   <input type="number" name="area" id="area" class="<%= locals.errores && locals.errores.area ? 'input-error' : '' %>" value="<%= pais.area %>">
   <% if (locals.errores && locals.errores.area) { %>
@@ -41,7 +44,8 @@
 
   <br><br>
 
-  <label>Países limítrofes</label><br>
+  <!--Borders-->
+  <label>Países limítrofes (Solo si tiene limites)</label><br>
   <div id="limitrofes-container">
     <% if (pais.borders && pais.borders.length > 0) { %>
       <%let limites = Array.isArray(pais.borders) ? pais.borders : [pais.borders];%>
@@ -58,13 +62,12 @@
       </div>
     <% } %>
   </div>
-
   <% if (locals.errores && locals.errores.borders) { %>
     <span class="msg-error"><%= locals.errores.borders %></span>
   <% } %>
-
   <button type="button" onclick="agregarCampo('limitrofes-container','borders')">Agregar más límites</button><br><br>
 
+  <!--Timezone-->
   <label>Zona horaria</label><br>
   <div id="timezones-container">
     <%let zonas = Array.isArray(pais.timezones) ? pais.timezones : [pais.timezones];%>
@@ -80,6 +83,7 @@
   <% } %>
   <button type="button" onclick="agregarCampo('timezones-container','timezones')">Agregar más zonas</button><br><br>
 
+  <!--Gini-->
   <label for="gini">Gini</label><br>
   <input type="number" name="gini" step="any" class="<%= locals.errores && locals.errores.gini ? 'input-error' : '' %>" value="<%= pais.gini || '' %>">
   <% if (locals.errores && locals.errores.gini) { %>

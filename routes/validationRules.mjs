@@ -58,8 +58,8 @@ const reglasComunes = [
     .isArray({ min: 1 }).withMessage("Debe incluir al menos una zona horaria"),
 
   body("gini")
+    .optional({ checkFalsy: true })
     .trim()
-    .notEmpty().withMessage("El índice Gini es requerido")
     // Acá usamos isFloat porque el Gini puede ser decimal (ej: 41.5)
     .isFloat({ min: 0, max: 100 }).withMessage("El gini debe estar entre 0 y 100")
 ];
@@ -74,7 +74,7 @@ export const validarCrear = [
     .isLength({ min: 3, max: 90 }).withMessage("El nombre debe tener entre 3 y 90 caracteres")
     // Validación personalizada asíncrona (consulta la Base de Datos)
     .custom(async (value) => {
-      const todosLosPaises = await Pais.find()
+      const todosLosPaises = await Pais.find({ creadoPor: "Gonzalo Santillan" })
 
       // Buscamos si ya existe alguien con ese nombre (sin importar mayúsculas/minúsculas)
       const duplicado = todosLosPaises.find(pais => {
@@ -99,7 +99,7 @@ export const validarEditar = [
     .isLength({ min: 3, max: 90 }).withMessage("El nombre debe tener entre 3 y 90 caracteres")
     .custom(async (value, { req }) => {
       const idActual = req.params.id // El ID del país que estoy editando ahora
-      const todosLosPaises = await Pais.find()
+      const todosLosPaises = await Pais.find({ creadoPor: "Gonzalo Santillan" })
 
       // Buscamos si el nombre ya existe en la base de datos
       const paisEncontrado = todosLosPaises.find(pais => {
